@@ -77,7 +77,7 @@ doSHA1:
 	mov qword [rsp+0x08], rdx
 ;whether we move rdx, edx, dx or just dl here affects instruction length, but not the result
 
-;Remember the comparisons: 
+;Remember the comparisons:
 ; "less" and "greater" are used for comparisons of signed integers
 ; "above" and "below" are used for unsigned integers
 
@@ -88,7 +88,7 @@ doSHA1:
 	mov dword [rsp+0x50], 0x10325476
 	mov dword [rsp+0x58], 0xC3D2E1F0
 	mov rsi, qword [rbp+18h]
-	
+
 .buffer_read:
 	lea rdi, [rsp+60h]
 	mov rax, qword [rsp]
@@ -125,8 +125,8 @@ doSHA1:
 	mov byte [rdi], 0
 	inc ecx
 	inc rdi
-	jmp short .add_lesser_zero_byte	
-	
+	jmp short .add_lesser_zero_byte
+
 .do_short_padding:
 	mov ecx, eax
 .add_one_zero_byte:
@@ -145,7 +145,7 @@ doSHA1:
 	bswap qword r8 ; make it big endian, because someone thought big-endians will rule the world
 	mov qword [rdi], r8
 	jmp short .start_process_block
-	
+
 .extra_padding_block:
 	mov rcx, qword [rsp+0x08]
 	cmp rcx, 0
@@ -328,7 +328,7 @@ doSHA1:
 	inc ecx
 	cmp ecx, 0x50
 	jb short .loopt60
-	
+
 	add dword [rsp + 0x38], ebx		;H0 = H0 + A
 	add dword [rsp + 0x40], r12d	;H1 = H1 + B
 	add dword [rsp + 0x48], r13d	;H2 = H2 + C
