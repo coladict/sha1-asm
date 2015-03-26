@@ -3,6 +3,8 @@
 #include "sha1.h"
 
 
+// The different curly brace styles indicate different authors
+
 enum
 {
 	shaSuccess = 0,
@@ -316,19 +318,12 @@ void SHA1PadMessage(SHA1Context *context)
 }
 
 
-void printSHA1(SHA1_DIGEST *dig){
-	uint32_t H0, H1, H2, H3, H4;
-	H0 = dig->H0;
-	H1 = dig->H1;
-	H2 = dig->H2;
-	H3 = dig->H3;
-	H4 = dig->H4;
-	printf("ASM:\t%02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X %02X\n",
-		(H0 >> 24) & 0xFF, (H0 >> 16) & 0xFF, (H0 >> 8) & 0xFF, H0 & 0xFF,
-		(H1 >> 24) & 0xFF, (H1 >> 16) & 0xFF, (H1 >> 8) & 0xFF, H1 & 0xFF,
-		(H2 >> 24) & 0xFF, (H2 >> 16) & 0xFF, (H2 >> 8) & 0xFF, H2 & 0xFF,
-		(H3 >> 24) & 0xFF, (H3 >> 16) & 0xFF, (H3 >> 8) & 0xFF, H3 & 0xFF,
-		(H4 >> 24) & 0xFF, (H4 >> 16) & 0xFF, (H4 >> 8) & 0xFF, H4 & 0xFF);
+void printSHA1(SHA1_DIGEST *dig) {
+	printf("\nASM:\t");
+	for (int i = 0; i < 20; ++i) {
+		printf("%02X ", dig->bytes[i]);
+	}
+	printf("\n");
 }
 
 

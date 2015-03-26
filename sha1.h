@@ -3,11 +3,16 @@
 #include <stdint.h>
 
 typedef struct {
-	uint32_t H0;
-	uint32_t H1;
-	uint32_t H2;
-	uint32_t H3;
-	uint32_t H4;
+	union {
+		struct {
+			uint32_t H0;
+			uint32_t H1;
+			uint32_t H2;
+			uint32_t H3;
+			uint32_t H4;
+		};
+		uint8_t bytes[20];
+	};
 } SHA1_DIGEST;
 
 #ifdef __cplusplus

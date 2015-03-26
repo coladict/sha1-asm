@@ -21,12 +21,17 @@ global doSHA1
 segment code use64 class='CODE'
 
 ;typedef struct {
-;	uint32_t H0,
-;	uint32_t H1,
-;	uint32_t H2,
-;	uint32_t H3,
-;	uint32_t H4
-; } SHA1_DIGEST;
+;	union {
+;		struct {
+;			uint32_t H0;
+;			uint32_t H1;
+;			uint32_t H2;
+;			uint32_t H3;
+;			uint32_t H4;
+;		};
+;		uint8_t bytes[20];
+;	};
+;} SHA1_DIGEST;
 
 ; function prototype:
 ; void doSHA1(SHA1_DIGEST* bufout, void* bufin, unsigned int bufsize);
@@ -344,6 +349,11 @@ doSHA1:
 	mov r14d,	dword [rsp + 0x50] 	;H3 = H3 + D
 	mov r15d,	dword [rsp + 0x58]	;H4 = H4 + E
 	mov rdi,	qword [rbp+0x10]
+	bswap dword ebx
+	bswap dword r12d
+	bswap dword r13d
+	bswap dword r14d
+	bswap dword r15d
 	mov dword [rdi], ebx
 	mov dword [rdi+0x04], r12d
 	mov dword [rdi+0x08], r13d
